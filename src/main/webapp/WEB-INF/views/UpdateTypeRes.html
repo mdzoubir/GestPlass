@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../resources/bootstrap.min.css" th:href="@{/resources/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    <title>Title</title>
+</head>
+<body>
+<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+    <div class="panel panel-default">
+        <div class="panel-hedding">Edit Type Reservation</div>
+        <div class="panel-body">
+            <form th:action="@{editTypeRes}"  method="post" th:object="${typeRes}">
+                <div class="form-group">
+                    <label class="custom-control-label">Nom de Role : </label>
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <input type="text" name="typeRes" th:field="*{typeRes}" class="form-control"/>
+                    <input type="number" name="nomberClass" th:field="*{nomberClass}" class="form-control"/>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

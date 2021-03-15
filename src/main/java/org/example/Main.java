@@ -1,5 +1,4 @@
 package org.example;
-
 import org.example.DAO.RoleDaoImpl;
 import org.example.DAO.UserDaoImpl;
 import org.example.Model.RoleEntity;
@@ -30,11 +29,13 @@ public class Main {
 //        } finally {
 //            session.close();
 //        }
-
-        UserRepository user = new UserRepository();
-        UserEntity userEntity = user.getUserByEmail("appr@gmail.com");
-        userEntity.showUser();
-
+//        RoleDaoImpl roleDao
+//                 = new RoleDaoImpl();
+//        RoleEntity roleEntity = roleDao.getRoleById(2);
+//
+//        UserEntity userEntity = new UserEntity("kamal", "kamal", "kamal@gmail.com", "123", 1324234850, roleEntity);
+//        UserDaoImpl userDao = new UserDaoImpl();
+//        userDao.addUser(userEntity);
 
     }
 }

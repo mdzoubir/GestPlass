@@ -3,9 +3,11 @@ package org.example.DAO;
 import org.example.HibernateUtil;
 import org.example.Model.UserEntity;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class UserDaoImpl implements UserDAO{
     Session session;
     @Override

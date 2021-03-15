@@ -2,14 +2,9 @@ package org.example.Model;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "users")
-public class UserEntity {
-
+public class FirstSignUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,38 +13,30 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
     @Column(unique = true, nullable = false)
-    @Email()
     private String email;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    @Pattern(regexp = "[0-9]{10}")
     private int  phone;
 
-    @OneToOne
-//    @JoinColumn(name = "roleId")
-    private RoleEntity role;
-
-    public UserEntity() {
+    public FirstSignUp() {
     }
 
-    public UserEntity(String firstName, String lastName, String email, String password, int phone, RoleEntity role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.role = role;
-    }
-
-    public UserEntity(int id, String firstName, String lastName, String email, String password, int phone, RoleEntity role) {
+    public FirstSignUp(int id, String firstName, String lastName, String email, String password, int phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.role = role;
+    }
+
+    public FirstSignUp(String firstName, String lastName, String email, String password, int phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -100,24 +87,15 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public RoleEntity getRole() {
-        return role;
-    }
 
-    public void setRole(RoleEntity role) {
-        this.role = role;
-    }
-
-
-    public void showUser() {
-        System.out.println("Users{" +
+    public void showSignUp() {
+        System.out.println("FirstSignUp{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phone=" + phone +
-                ", role=" + role.getRoleName() +
                 '}');
     }
 }

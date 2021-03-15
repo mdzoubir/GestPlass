@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../resources/bootstrap.min.css" th:href="@{/resources/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand active" href="index">Roles</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand" href="Users">Users</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand" href="Reservation">Reservation</a>
+        </div>
+    </nav>
+    <div class="container">
+        <a class="btn btn-primary m-5" href="RoleForme" role="button">AJOUTER ROLE</a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="e:${roleList}">
+                    <td th:text="${e.id}"></td>
+                    <td th:text="${e.roleName}"></td>
+                    <td>
+                        <form th:action="@{edit}"  method="get">
+                            <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                            <input type="submit" value="update">
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{delete}"  method="post">
+                            <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                            <input type="submit" value="delete">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</header>
+</body>
+</html>

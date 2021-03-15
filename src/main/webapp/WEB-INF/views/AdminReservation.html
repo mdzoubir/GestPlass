@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/bootstrap.min.css" th:href="@{/resources/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand active" href="index">Roles</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand" href="Users">Users</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand" href="Reservation">Reservation</a>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary container m-5">
+        <div class="container">
+            <a class="navbar-brand active" href="Reservation">Type De Reservation</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand" href="allRes">Tout Les Reservation</a>
+        </div>
+    </nav>
+    <div class="container">
+        <a class="btn btn-primary m-5" href="TypeResForm" role="button">AJOUTER UN TYPE DE RESERVATION</a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type de Reservation</th>
+                <th>Nombre des places</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="e:${typeRes}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.typeRes}"></td>
+                <td th:text="${e.nomberClass}"></td>
+                <td>
+                    <form th:action="@{updateTypeRes}"  method="get">
+                        <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                        <input type="submit" value="update">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{deleteTypeRes}"  method="post">
+                        <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                        <input type="submit" value="delete">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
