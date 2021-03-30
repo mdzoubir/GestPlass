@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/stylelib.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/fontawsome-all.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <title>User Dashbord</title>
+</head>
+<body>
+<div class="dashboard-main-wrapper">
+    <!-- ============================================================== -->
+    <!-- navbar -->
+    <!-- ============================================================== -->
+    <div class="dashboard-header">
+        <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <a class="navbar-brand" href="index" th:text="${admin.firstName + ' ' + admin.lastName}"></a>
+            <ul class="navbar-nav ml-auto navbar-right-top">
+                <li class="nav-item">
+                    <div id="custom-search" class="top-search-bar">
+                        <a class="form-control" th:href="@{login}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            Menu
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="Profil" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Profil</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="index" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Role</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="Reservation" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Reservation</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="Users" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Users</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="allDemande" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Demande</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="HistoriqueReservaton" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"></i>Historique De Reservation</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end left sidebar -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- wrapper  -->
+    <!-- ============================================================== -->
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content ">
+                <!-- ============================================================== -->
+                <!-- pageheader  -->
+                <!-- ============================================================== -->
+                <div class="card">
+                    <div class="card-header">Profil</div>
+                    <div class="card-body">
+                            <form class="form-horizontal" th:action="@{SearchDate}" method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <h5>Racherche avec La  Date De Reservation</h5>
+                                        <input type="date" name="dateRes" class="form-control">
+                                        <button type="submit" class="btn btn-primary m-2">
+                                            Recherch
+                                        </button>
+                                        <h5 th:text="'Tout les reservation: '  + ${Reservation.size()}"></h5>
+                                    </div>
+                                </div>
+                            </form>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered first">
+                                <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Date de Reservation</th>
+                                    <th>Le Type De Reservation</th>
+                                    <th>Confirmation</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="e:${Reservation}">
+                                    <td th:text="${e.user.firstName + ' ' + e.user.lastName}"></td>
+                                    <td th:text="${e.user.email}"></td>
+                                    <td th:text="${e.dateRes}"></td>
+                                    <td th:text="${e.typeRes.typeRes}"></td>
+                                    <td th:text="${e.confirmation}"></td>
+                                    <td class="d-flex flex-row">
+                                        <form th:action="@{deleteReservation}"  method="post">
+                                            <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                                            <input type="submit" value="Refuser" class="btn btn-danger">
+                                        </form>
+                                        <span th:if="${e.confirmation == false}">
+                                            <form th:action="@{AccepterReservation}"  method="post">
+                                                <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                                                <input type="submit" value="Accepter" class="btn btn-primary ml-1">
+                                            </form>
+                                        </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+</html>

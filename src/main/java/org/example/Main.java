@@ -1,14 +1,18 @@
 package org.example;
+import org.example.DAO.AdminDaoImpl;
 import org.example.DAO.RoleDaoImpl;
+import org.example.DAO.StudentDaoImpl;
 import org.example.DAO.UserDaoImpl;
-import org.example.Model.RoleEntity;
-import org.example.Model.UserEntity;
+import org.example.Model.*;
+import org.example.Repository.ResRepository;
 import org.example.Repository.UserRepository;
 import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
+import java.util.Date;
+import java.util.List;
 
 public class Main {
 
@@ -31,11 +35,13 @@ public class Main {
 //        }
 //        RoleDaoImpl roleDao
 //                 = new RoleDaoImpl();
-//        RoleEntity roleEntity = roleDao.getRoleById(2);
-//
-//        UserEntity userEntity = new UserEntity("kamal", "kamal", "kamal@gmail.com", "123", 1324234850, roleEntity);
-//        UserDaoImpl userDao = new UserDaoImpl();
-//        userDao.addUser(userEntity);
+//        RoleEntity roleEntity = roleDao.getRoleById(1);
+////
+//        AdminEntity studentEntity = new AdminEntity("kamal", "kamal", "kamal@gmail.com", "123", 2121121212, roleEntity);
+//        AdminDaoImpl studentDao = new AdminDaoImpl();
+//        studentDao.addAdmin(studentEntity);
+
+
 
     }
 }

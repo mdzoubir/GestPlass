@@ -18,16 +18,13 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
     @Column(unique = true, nullable = false)
-    @Email()
     private String email;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    @Pattern(regexp = "[0-9]{10}")
     private int  phone;
 
     @OneToOne
-//    @JoinColumn(name = "roleId")
     private RoleEntity role;
 
     public UserEntity() {

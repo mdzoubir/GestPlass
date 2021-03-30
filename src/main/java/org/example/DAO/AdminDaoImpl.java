@@ -5,9 +5,11 @@ import org.example.HibernateUtil;
 import org.example.Model.AdminEntity;
 import org.example.Model.RoleEntity;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AdminDaoImpl implements AdminDAO{
     Session session;
     @Override

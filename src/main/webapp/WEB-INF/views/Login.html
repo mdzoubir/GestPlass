@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Creative Colorlib SignUp Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- Custom Theme files -->
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- //Custom Theme files -->
-    <!-- web font -->
-    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../resources/login.css" th:href="@{/resources/login.css}">
-    <!-- //web font -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"  th:href="@{/resources/css/bootstrap.min.css}">
+    <link rel="stylesheet"  type="text/css" th:href="@{/resources/css/stylelib.css}">
+    <link rel="stylesheet"  type="text/css" th:href="@{/resources/css/fontawesome-all.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ranchers&family=Redressed&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
 </head>
 <body>
 <!-- main -->
-<div class="main-w3layouts wrapper">
-    <h1>Login Form</h1>
-    <div class="main-agileinfo">
-        <div class="agileits-top">
+<div class="splash-container">
+    <div class="card ">
+        <a class="navbar-brand text-center text-primary logo">YouCode</a>
+        <div class="card-body">
             <form action="#" method="post" th:action="@{Login}" th:object="${user}">
-                <input class="text email" type="email" name="email" placeholder="Email" required th:value="*{email}">
-                <input class="text" type="password" name="password" placeholder="Password" required th:value="*{password}">
-                <input type="submit" value="LOGIN">
+                <div class="form-group mb-4">
+                    <input class="form-control form-control-lg" id="username" type="email" placeholder="Email" name="email" autocomplete="off" th:value="*{email}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" id="password" type="password" name="password" placeholder="Password" th:value="*{password}">
+                </div>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
             </form>
-            <p>Don't have an Account? <a href="signUp"> Sign Up Now!</a></p>
+        </div>
+        <div class="card-footer bg-white p-0">
+            <div class="w-100 text-center mt-3 mb-3">
+                <a href="signUp" class="text-center">Create An Account</a>
+            </div>
         </div>
     </div>
-
 </div>
+
+<script th:href="@{/resources/bootstrap.bundle.js}"></script>
 <!-- //main -->
 </body>
 </html>

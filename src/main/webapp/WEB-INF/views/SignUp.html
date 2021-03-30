@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Creative Colorlib SignUp Form</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-        <!-- Custom Theme files -->
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <!-- //Custom Theme files -->
-        <!-- web font -->
-        <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../../resources/login.css" th:href="@{/resources/login.css}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Sign Up</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet"  th:href="@{/resources/css/bootstrap.min.css}">
+        <link rel="stylesheet"  type="text/css" th:href="@{/resources/css/stylelib.css}">
+        <link rel="stylesheet"  type="text/css" th:href="@{/resources/css/fontawesome-all.css}">
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
 
-        <!-- //web font -->
+            body {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-align: center;
+                align-items: center;
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+        </style>
     </head>
-<body>
-<!-- main -->
-<div class="main-w3layouts wrapper">
-    <h1>Creative SignUp Form</h1>
-    <div class="main-agileinfo">
-        <div class="agileits-top">
-            <form action="#" method="post">
-                <input class="text" type="text" name="First Name" placeholder="First Name" required="">
-                <input class="text" type="text" name="Last Name" placeholder="Last Name" required="">
-                <input class="text email" type="email" name="email" placeholder="Email" required="">
-                <input class="text" type="password" name="password" placeholder="Password" required="">
-                <input class="text" type="text" name="phone" placeholder="Phone" required="">
-
-                <input type="submit" value="SIGNUP">
-            </form>
-            <p>You have an Account? <a href="Login"> Login Now!</a></p>
+    <body>
+    <!-- ============================================================== -->
+    <!-- signup form  -->
+    <!-- ============================================================== -->
+    <form class="splash-container" action="#" method="POST" th:object="${demande}" th:action="@{demande}">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-1">Registrations Form</h3>
+                <p>Please enter your user information.</p>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="First Name" required="" placeholder="First Name" autocomplete="off" th:field="*{firstName}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text"  name="Last Name" required="" placeholder="Last Name" autocomplete="off" th:field="*{lastName}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg"  type="email" required="" placeholder="Email" pattern="[a-z0-9._%+-]+@[student]+\.+[youcode]+\.+[a-z]{2,}$" name="email" th:field="*{email}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="" placeholder="Passsword" name="password" th:field="*{password}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="tel" required placeholder="Phone Number" name="phone" th:field="*{phone}">
+                </div>
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <p>Already member? <a href="login" class="text-secondary">Login Here.</a></p>
+            </div>
         </div>
-    </div>
-</div>
-<!-- //main -->
-</body>
+    </form>
+    </body>
 </html>

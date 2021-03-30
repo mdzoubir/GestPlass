@@ -21,11 +21,13 @@ public class TypeResController {
 
     @RequestMapping(value = "TypeResForm", method = RequestMethod.GET)
     public String getTypeRes(Model model){
+        model.addAttribute("admin", HomeController.user);
         model.addAttribute("typeRes", new TypeResEntity());
         return "TypeResForm";
     }
     @RequestMapping(value = "SaveTypeRes", method = RequestMethod.POST)
-    public String SaveTyeRes(TypeResEntity typeResEntity){
+    public String SaveTyeRes(TypeResEntity typeResEntity, Model model){
+        model.addAttribute("admin", HomeController.user);
         typeResDaompl.addTypeRes(typeResEntity);
         return "redirect:/Reservation";
     }
@@ -40,6 +42,7 @@ public class TypeResController {
 
     @RequestMapping(value = "updateTypeRes", method = RequestMethod.GET)
     public String updateTypeRes(Model model, HttpServletRequest req){
+        model.addAttribute("admin", HomeController.user);
         int id = Integer.parseInt(req.getParameter("id"));
         TypeResEntity typeResEntity = typeResDaompl.getTypeResById(id);
         model.addAttribute("typeRes", typeResEntity);
@@ -47,7 +50,8 @@ public class TypeResController {
     }
 
     @RequestMapping(value = "editTypeRes", method = RequestMethod.POST)
-    public String updateRole(HttpServletRequest req){
+    public String updateRole(HttpServletRequest req, Model model){
+        model.addAttribute("admin", HomeController.user);
         int id = Integer.parseInt(req.getParameter("id"));
         String typeRes = req.getParameter("typeRes");
         int nomberClass = Integer.parseInt(req.getParameter("nomberClass"));

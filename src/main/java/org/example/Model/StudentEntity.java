@@ -10,13 +10,26 @@ import javax.persistence.Table;
 @Table(name = "student")
 public class StudentEntity extends UserEntity{
     @Column(nullable = false)
-    private String reservationMax;
+    private int reservationMax;
+    public StudentEntity(){
 
-    public String getReservationMax() {
+    }
+
+    public StudentEntity(int id, String firstName, String lastName, String email, String password, int phone, RoleEntity role, int reservationMax) {
+        super(id, firstName, lastName, email, password, phone, role);
+        this.reservationMax = reservationMax;
+    }
+
+    public StudentEntity(String firstName, String lastName, String email, String password, int phone, RoleEntity role, int reservationMax) {
+        super(firstName, lastName, email, password, phone, role);
+        this.reservationMax = reservationMax;
+    }
+
+    public int getReservationMax() {
         return reservationMax;
     }
 
-    public void setReservationMax(String reservationMax) {
+    public void setReservationMax(int reservationMax) {
         this.reservationMax = reservationMax;
     }
 }

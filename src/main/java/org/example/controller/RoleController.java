@@ -23,11 +23,13 @@ public class RoleController {
     //save role
     @RequestMapping(value = "RoleForme", method = RequestMethod.GET)
     public String formRole(Model model){
+        model.addAttribute("admin", HomeController.user);
         model.addAttribute("role", new RoleEntity());
         return "RoleForm";
     }
     @RequestMapping(value = "SaveRole", method = RequestMethod.POST)
-    public String SaveRole(RoleEntity role){
+    public String SaveRole(RoleEntity role, Model model){
+        model.addAttribute("admin", HomeController.user);
         roleDAO.addRole(role);
         return "redirect:/index";
     }
@@ -41,6 +43,7 @@ public class RoleController {
     }
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String updateForm(Model model, HttpServletRequest req){
+        model.addAttribute("admin", HomeController.user);
         int id = Integer.parseInt(req.getParameter("id"));
         RoleEntity roleEntity = roleDAO.getRoleById(id);
         model.addAttribute("role", roleEntity);
@@ -50,7 +53,9 @@ public class RoleController {
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String updateRole(HttpServletRequest req,
-                             HttpServletResponse resp){
+                             HttpServletResponse resp, Model model){
+        model.addAttribute("admin", HomeController.user);
+
         int id = Integer.parseInt(req.getParameter("id"));
         String roleName = req.getParameter("roleName");
         RoleEntity roleEntity = new RoleEntity(id, roleName);
