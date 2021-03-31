@@ -101,19 +101,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="e:${userList}">
-                                        <td th:text="${e.firstName}"></td>
-                                        <td th:text="${e.lastName}"></td>
-                                        <td th:text="${e.email}"></td>
-                                        <td th:text="${e.phone}"></td>
-                                        <td th:text="${e.role.roleName}"></td>
-                                        <td>
-                                            <form th:action="@{deleteUser}"  method="post">
-                                                <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
-                                                <input type="submit" value="delete" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        <tr th:each="e:${userList}">
+                                            <div th:if="${e.role.roleName == 'Apprenant'}">
+
+                                                <td th:text="${e.firstName}"></td>
+                                                <td th:text="${e.lastName}"></td>
+                                                <td th:text="${e.email}"></td>
+                                                <td th:text="'0' + ${e.phone}"></td>
+                                                <td th:text="${e.role.roleName}"></td>
+                                                <td>
+                                                    <form th:action="@{deleteUser}"  method="post">
+                                                        <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                                                        <input type="submit" value="Delete" class="btn btn-danger">
+                                                    </form>
+                                                </td>
+                                            </div>
+                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>

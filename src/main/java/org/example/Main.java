@@ -1,8 +1,5 @@
 package org.example;
-import org.example.DAO.AdminDaoImpl;
-import org.example.DAO.RoleDaoImpl;
-import org.example.DAO.StudentDaoImpl;
-import org.example.DAO.UserDaoImpl;
+import org.example.DAO.*;
 import org.example.Model.*;
 import org.example.Repository.ResRepository;
 import org.example.Repository.UserRepository;
@@ -42,11 +39,8 @@ public class Main {
 //        AdminEntity studentEntity = new AdminEntity("kamal", "kamal", "kamal@gmail.com", "123", 2121121212, roleEntity);
 //        AdminDaoImpl studentDao = new AdminDaoImpl();
 //        studentDao.addAdmin(studentEntity);
-        LocalDate currentDate = LocalDate.now();
-        System.out.println("Current date: "+currentDate);
-        //Adding one week to the current date
-        LocalDate result = currentDate.plus(1, ChronoUnit.WEEKS);
-        System.out.println("Day after one week: "+result);
+
+
 
     }
 }

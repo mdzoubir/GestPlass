@@ -2,6 +2,7 @@ package org.example.DAO;
 
 import org.example.HibernateUtil;
 import org.example.Model.StudentEntity;
+import org.example.Repository.ResRepository;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Component
 public class StudentDaoImpl implements StudentDAO{
+
     Session session;
     @Override
     public void addStudent(StudentEntity studentEntity) {
@@ -36,6 +38,8 @@ public class StudentDaoImpl implements StudentDAO{
         session.getTransaction().commit();
         return studentList;
     }
+
+
 
     @Override
     public void deleteStudent(int id) {

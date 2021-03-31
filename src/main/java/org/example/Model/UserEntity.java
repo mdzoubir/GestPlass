@@ -22,7 +22,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private int  phone;
+    private String  phone;
 
     @OneToOne
     private RoleEntity role;
@@ -30,7 +30,7 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String firstName, String lastName, String email, String password, int phone, RoleEntity role) {
+    public UserEntity(String firstName, String lastName, String email, String password, String phone, RoleEntity role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,7 +39,7 @@ public class UserEntity {
         this.role = role;
     }
 
-    public UserEntity(int id, String firstName, String lastName, String email, String password, int phone, RoleEntity role) {
+    public UserEntity(int id, String firstName, String lastName, String email, String password, String phone, RoleEntity role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -89,11 +89,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

@@ -34,7 +34,7 @@ public class ResDaoImpl implements ResDAO{
     public List<ResEntity> getAllRes() {
         session = HibernateUtil.getSession();
         session.beginTransaction();
-        List<ResEntity> listRes = session.createQuery("From ResEntity ").list();
+        List<ResEntity> listRes = session.createQuery("From ResEntity order by id desc ").list();
         session.getTransaction().commit();
         return listRes;
     }
@@ -48,24 +48,24 @@ public class ResDaoImpl implements ResDAO{
         if (resEntity != null){
             session.delete(resEntity);
             session.flush();
-            System.out.println("delete reservation");
+            System.out.println("delete res");
         }else{
-            System.out.println("reservation does not exist");
+            System.out.println("res does not exist");
         }
         session.getTransaction().commit();
     }
 
     @Override
-    public ResEntity updateRes(ResEntity ResEntity) {
+    public ResEntity updateRes(ResEntity reser) {
         ResEntity resEntity;
         session = HibernateUtil.getSession();
         session.beginTransaction();
-        resEntity = session.find(ResEntity.class, ResEntity.getId());
+        resEntity = session.find(ResEntity.class, reser.getId());
         if (resEntity != null){
-            resEntity.setConfirmation(ResEntity.isConfirmation());
-            resEntity.setDateRes(ResEntity.getDateRes());
-            resEntity.setTypeRes(ResEntity.getTypeRes());
-            resEntity.setUser(ResEntity.getUser());
+            resEntity.setConfirmation(reser.isConfirmation());
+            resEntity.setDateRes(reser.getDateRes());
+            resEntity.setTypeRes(reser.getTypeRes());
+            resEntity.setUser(reser.getUser());
             System.out.println("Res update");
         }else{
             System.out.println("Res does not exist");

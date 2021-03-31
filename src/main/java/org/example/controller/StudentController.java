@@ -102,4 +102,55 @@ public class StudentController {
         return "redirect:/Student";
     }
 
+
+    @RequestMapping(value = "UpdateRes", method = RequestMethod.GET)
+    public  String getForm(Model model, HttpServletRequest request){
+        int id  = Integer.parseInt(request.getParameter("id"));
+        ResEntity resEntity = resDao.getResById(id);
+        model.addAttribute("reservation", resEntity);
+
+        //student
+        model.addAttribute("student", HomeController.user);
+
+        //new Date
+        LocalDate currentDate = LocalDate.now();
+        model.addAttribute("date", currentDate);
+        LocalDate result = currentDate.plus(1, ChronoUnit.WEEKS);
+        model.addAttribute("maxDate", result);
+
+        //list type Res
+        List<TypeResEntity> typeResList = typeResDaompl.getAllTypeRes();
+        model.addAttribute("typeList", typeResList);
+
+        return "UpdateRes";
+    }
+
+
+    @RequestMapping(value = "UpdateRes", method = RequestMethod.POST)
+    public  String Editres(HttpServletRequest request){
+        String date = request.getParameter("dateRes");
+        String type = request.getParameter("typeRes");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+
+        TypeResEntity typeResEntity = typeResRepository.getTypeResbyName(type);
+        if(typeResEntity.getNomberClass() > resRepository.getResByDate(date).size()){
+            ResEntity resEntity = new ResEntity(id, HomeController.user, date, true, typeResEntity);
+            resDao.updateRes(resEntity);
+        }else{
+            ResEntity resEntity = new ResEntity(id, HomeController.user, date, false, typeResEntity);
+            resDao.updateRes(resEntity);
+        }
+        return "redirect:/Student";
+    }
+
+
+
+    @RequestMapping(value = "DeleteRes", method = RequestMethod.POST)
+    public String DeleteRes(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        resDao.deleteRes(id);
+        return "redirect:/Student";
+    }
+
 }

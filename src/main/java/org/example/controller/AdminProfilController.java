@@ -42,7 +42,7 @@ public class AdminProfilController {
         String ln = req.getParameter("lastName");
         String email = req.getParameter("email");
         String pass = req.getParameter("password");
-        int phone = Integer.parseInt(req.getParameter("phone"));
+        String phone = req.getParameter("phone");
 
         RoleEntity role = roleDao.getRoleById(1);
         AdminEntity adminEntity = new AdminEntity(id,fn,ln,email,pass,phone, role);

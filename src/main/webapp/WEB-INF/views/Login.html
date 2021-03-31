@@ -31,6 +31,9 @@
 <div class="splash-container">
     <div class="card ">
         <a class="navbar-brand text-center text-primary logo">YouCode</a>
+        <div th:if="${!msg.equals('')}" class="alert alert-danger">
+            <p class="mb-1 text-center" th:text="${msg}"></p>
+        </div>
         <div class="card-body">
             <form action="#" method="post" th:action="@{Login}" th:object="${user}">
                 <div class="form-group mb-4">

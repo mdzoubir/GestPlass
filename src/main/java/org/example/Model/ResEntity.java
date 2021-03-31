@@ -1,6 +1,7 @@
 package org.example.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Reservation")
@@ -13,7 +14,7 @@ public class ResEntity {
     @Column(nullable = false)
     private String dateRes;
     private boolean confirmation;
-    @OneToOne
+    @OneToOne()
     private TypeResEntity typeRes;
 
     public ResEntity() {

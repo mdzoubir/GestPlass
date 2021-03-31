@@ -2,6 +2,7 @@ package org.example.Repository;
 
 import org.example.HibernateUtil;
 import org.example.Model.ResEntity;
+import org.example.Model.StudentEntity;
 import org.example.Model.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -24,9 +25,11 @@ public class ResRepository {
     public List<ResEntity> getResByUser(UserEntity userEntity){
         session = HibernateUtil.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("From ResEntity where user.id=:userId");
+        Query query = session.createQuery("From ResEntity where user.id=:userId order by id desc ");
         query.setParameter("userId", userEntity.getId());
         List<ResEntity> list = query.list();
         return list;
     }
+
+
 }

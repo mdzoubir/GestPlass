@@ -44,7 +44,7 @@ public class UserController {
     @RequestMapping(value = "deleteUser",method = RequestMethod.POST)
     public String deleteUser(HttpServletRequest req, Model model){
         int id = Integer.parseInt(req.getParameter("id"));
-        userDao.deleteUser(id);
+        studentDao.deleteStudent(id);
         model.addAttribute("admin", HomeController.user);
         List<UserEntity> userList = userDao.getAllUsers();
         model.addAttribute("userList", userList);
@@ -82,6 +82,7 @@ public class UserController {
         studentEntity.setReservationMax(3);
         studentDao.addStudent(studentEntity);
         demandeDao.deleteDemande(id);
+
         return "redirect:/allDemande";
     }
 

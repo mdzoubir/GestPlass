@@ -18,12 +18,12 @@ public class DemandeEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private int  phone;
+    private String  phone;
 
     public DemandeEntity() {
     }
 
-    public DemandeEntity(int id, String firstName, String lastName, String email, String password, int phone) {
+    public DemandeEntity(int id, String firstName, String lastName, String email, String password, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,7 +32,7 @@ public class DemandeEntity {
         this.phone = phone;
     }
 
-    public DemandeEntity(String firstName, String lastName, String email, String password, int phone) {
+    public DemandeEntity(String firstName, String lastName, String email, String password, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -80,11 +80,11 @@ public class DemandeEntity {
         this.password = password;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
