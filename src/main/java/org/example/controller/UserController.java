@@ -6,6 +6,7 @@ import org.example.DAO.StudentDaoImpl;
 import org.example.DAO.UserDaoImpl;
 import org.example.Model.DemandeEntity;
 import org.example.Model.StudentEntity;
+import org.example.Model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +31,25 @@ public class UserController {
     @Autowired
     private StudentDaoImpl studentDao;
 
+    @RequestMapping(value = "Users")
+    public String users(Model model){
+        model.addAttribute("admin", HomeController.user);
+        List<UserEntity> userList = userDao.getAllUsers();
+        model.addAttribute("userList", userList);
+        model.addAttribute("msg", "");
+        return "AdminUsers";
+    }
+
+
     @RequestMapping(value = "deleteUser",method = RequestMethod.POST)
-    public String deleteUser(HttpServletRequest req,
-                             HttpServletResponse resp){
+    public String deleteUser(HttpServletRequest req, Model model){
         int id = Integer.parseInt(req.getParameter("id"));
         userDao.deleteUser(id);
-        return "redirect:/Users";
+        model.addAttribute("admin", HomeController.user);
+        List<UserEntity> userList = userDao.getAllUsers();
+        model.addAttribute("userList", userList);
+        model.addAttribute("msg", "The Delete has been completed successfully");
+        return "AdminUsers";
     }
 
     @RequestMapping(value = "allDemande")

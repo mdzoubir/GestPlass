@@ -7,17 +7,30 @@ import org.example.Model.TypeResEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TypeResController {
 
     @Autowired
     private TypeResDaompl typeResDaompl;
+
+    @RequestMapping(value = "Reservation")
+    public String reservation(Model model){
+        model.addAttribute("admin", HomeController.user);
+        List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
+        model.addAttribute("typeRes", typeResEntities);
+        model.addAttribute("msg", "");
+        return "AdminReservation";
+    }
 
     @RequestMapping(value = "TypeResForm", method = RequestMethod.GET)
     public String getTypeRes(Model model){
@@ -26,18 +39,24 @@ public class TypeResController {
         return "TypeResForm";
     }
     @RequestMapping(value = "SaveTypeRes", method = RequestMethod.POST)
-    public String SaveTyeRes(TypeResEntity typeResEntity, Model model){
+    public String SaveTyeRes(@ModelAttribute TypeResEntity typeResEntity, Model model){
         model.addAttribute("admin", HomeController.user);
         typeResDaompl.addTypeRes(typeResEntity);
-        return "redirect:/Reservation";
+        List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
+        model.addAttribute("typeRes", typeResEntities);
+        model.addAttribute("msg", "The Registration has been completed successfully");
+        return "AdminReservation";
     }
 
     @RequestMapping(value = "deleteTypeRes", method = RequestMethod.POST)
-    public String deleteTypeRes(HttpServletRequest req,
-                                HttpServletResponse resp){
+    public String deleteTypeRes(HttpServletRequest req,Model model){
         int id = Integer.parseInt(req.getParameter("id"));
         typeResDaompl.deleteTypeRes(id);
-        return "redirect:/Reservation";
+        List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
+        model.addAttribute("admin", HomeController.user);
+        model.addAttribute("typeRes", typeResEntities);
+        model.addAttribute("msg", "The Delete has been completed successfully");
+        return "AdminReservation";
     }
 
     @RequestMapping(value = "updateTypeRes", method = RequestMethod.GET)
@@ -57,6 +76,9 @@ public class TypeResController {
         int nomberClass = Integer.parseInt(req.getParameter("nomberClass"));
         TypeResEntity typeResEntity = new TypeResEntity(id, typeRes, nomberClass);
         typeResDaompl.updateTypeRes(typeResEntity);
-        return "redirect:/Reservation";
+        List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
+        model.addAttribute("typeRes", typeResEntities);
+        model.addAttribute("msg", "The update has been completed successfully");
+        return "AdminReservation";
     }
 }

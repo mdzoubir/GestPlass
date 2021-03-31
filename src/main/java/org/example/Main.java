@@ -11,8 +11,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 public class Main {
 
@@ -40,8 +42,11 @@ public class Main {
 //        AdminEntity studentEntity = new AdminEntity("kamal", "kamal", "kamal@gmail.com", "123", 2121121212, roleEntity);
 //        AdminDaoImpl studentDao = new AdminDaoImpl();
 //        studentDao.addAdmin(studentEntity);
-
-
+        LocalDate currentDate = LocalDate.now();
+        System.out.println("Current date: "+currentDate);
+        //Adding one week to the current date
+        LocalDate result = currentDate.plus(1, ChronoUnit.WEEKS);
+        System.out.println("Day after one week: "+result);
 
     }
 }

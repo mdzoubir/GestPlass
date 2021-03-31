@@ -79,7 +79,16 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header mb-2">Tableau De Type Des Reseration</h5>
+                        <div class="d-flex justify-content-between card-header">
+                            <h5>Tableau De Type Des Reseration</h5>
+                            <div th:if="${!msg.equals('')}">
+                                <p class="mb-1 text-danger" th:text="${msg}"></p>
+
+                            </div>
+                            <div th:if="${msg.equals('')}">
+                                <p class="mb-1" th:text="${''}"></p>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <a class="btn btn-primary mb-2" href="TypeResForm" role="button">AJOUTER UN TYPE DE RESERVATION</a>
                             <div class="table-responsive">

@@ -17,16 +17,4 @@ public interface AdminDAO {
     public void deleteAdmin(int id);
     public AdminEntity updateAdmin(AdminEntity admin);
 
-    @Controller
-    class SignUpController {
-
-        @Autowired
-        private DemandeDaoImpl demandeDao;
-
-        @RequestMapping(value = "demande", method = RequestMethod.POST)
-        public String demande(@ModelAttribute DemandeEntity demandeEntity){
-            demandeDao.addDemande(demandeEntity);
-            return "redirect:/signUp";
-        }
-    }
 }

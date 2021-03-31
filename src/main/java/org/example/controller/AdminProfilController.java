@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminProfilController {
+
     @Autowired
     private RoleDaoImpl roleDao;
 
@@ -24,11 +25,13 @@ public class AdminProfilController {
     @RequestMapping(value = "Profil")
     public String adminProfil(Model model){
         model.addAttribute("admin", HomeController.user);
+        model.addAttribute("msg", "");
         return "AdminProfil";
     }
     @RequestMapping(value = "EditAdminProfil")
     public String editProfil(Model model){
         model.addAttribute("admin", HomeController.user);
+
         return "editAdminProfil";
     }
 
@@ -47,6 +50,8 @@ public class AdminProfilController {
         adminDao.updateAdmin(adminEntity);
         HomeController.user = adminEntity;
         model.addAttribute("admin", adminEntity);
+        model.addAttribute("msg", "The update has been completed successfully");
+
         return "AdminProfil";
     }
 }

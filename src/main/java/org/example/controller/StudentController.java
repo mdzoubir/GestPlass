@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +29,6 @@ public class StudentController {
     private TypeResDaompl typeResDaompl;
 
     @Autowired
-    private UserDaoImpl userDao;
-
-    @Autowired
     private RoleDaoImpl roleDao;
 
     @Autowired
@@ -41,11 +40,21 @@ public class StudentController {
     @Autowired
     private ResRepository resRepository;
 
+    @RequestMapping(value = "Student", method = RequestMethod.GET)
+    public String Apprenant(Model model){
+        model.addAttribute("user", HomeController.user);
+        List<ResEntity> list = resRepository.getResByUser(HomeController.user);
+        model.addAttribute("list", list);
+        return "/Student";
+    }
+
     @RequestMapping(value = "editProfil", method = RequestMethod.GET)
     public String getStudent(HttpServletRequest req, Model model){
         model.addAttribute("student", HomeController.user);
         return "editStudent";
     }
+
+
 
     @RequestMapping(value = "editProfil", method = RequestMethod.POST)
     public String editStudent(@ModelAttribute StudentEntity studentEntity){
@@ -67,6 +76,10 @@ public class StudentController {
         ResEntity resEntity = new ResEntity();
         model.addAttribute("student", HomeController.user);
         model.addAttribute("resEntity", resEntity);
+        LocalDate currentDate = LocalDate.now();
+        model.addAttribute("date", currentDate);
+        LocalDate result = currentDate.plus(1, ChronoUnit.WEEKS);
+        model.addAttribute("maxDate", result);
         return "AddReservation";
     }
 

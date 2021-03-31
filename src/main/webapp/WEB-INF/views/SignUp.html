@@ -34,6 +34,9 @@
                 <h3 class="mb-1">Registrations Form</h3>
                 <p>Please enter your user information.</p>
             </div>
+            <div th:if="${!msg.equals('')}" class="alert alert-primary">
+                <p class="mb-1" th:text="${msg}"></p>
+            </div>
             <div class="card-body">
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="text" name="First Name" required="" placeholder="First Name" autocomplete="off" th:field="*{firstName}">

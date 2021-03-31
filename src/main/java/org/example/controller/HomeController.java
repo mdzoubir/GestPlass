@@ -43,13 +43,12 @@ public class HomeController {
 	public String signUp(Model model) throws IOException{
 		demandeEntity = new DemandeEntity();
 		model.addAttribute("demande", demandeEntity);
+		model.addAttribute("msg", "");
 		return "SignUp";
 	}
 
 	@PostMapping(value = "/Login")
-	public String login(@ModelAttribute UserEntity userEntity, Model model){
-		System.out.println(userEntity.getEmail());
-		System.out.println(userEntity.getPassword());
+	public String login(@ModelAttribute UserEntity userEntity){
 
 		userRepository = new UserRepository();
 		user =userRepository.getUserByEmail(userEntity.getEmail());
@@ -64,11 +63,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "Student", method = RequestMethod.GET)
-	public String Apprenant(Model model){
-		model.addAttribute("user", user);
-		return "/Student";
-	}
+
 
 
 

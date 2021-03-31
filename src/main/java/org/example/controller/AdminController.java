@@ -37,21 +37,7 @@ public class AdminController {
         return "AdminRole";
     }
 
-    @RequestMapping(value = "Users")
-    public String users(Model model){
-        model.addAttribute("admin", HomeController.user);
-        List<UserEntity> userList = userDao.getAllUsers();
-        model.addAttribute("userList", userList);
-        return "AdminUsers";
-    }
 
-    @RequestMapping(value = "Reservation")
-    public String reservation(Model model){
-        model.addAttribute("admin", HomeController.user);
-        List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
-        model.addAttribute("typeRes", typeResEntities);
-        return "AdminReservation";
-    }
 
 
     @RequestMapping(value = "HistoriqueReservaton")
