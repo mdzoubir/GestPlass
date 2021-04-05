@@ -1,28 +1,27 @@
 package org.example.controller;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.example.DAO.DemandeDaoImpl;
-import org.example.DAO.RoleDaoImpl;
 import org.example.Model.DemandeEntity;
-import org.example.Model.RoleEntity;
 import org.example.Model.UserEntity;
 import org.example.Repository.DemandeRepository;
 import org.example.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 
 public class HomeController {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -35,7 +34,7 @@ public class HomeController {
 	private DemandeEntity demandeEntity;
 
 	@RequestMapping(value="/login")
-	public String test(Model model) throws IOException{
+	public String test(Model model){
 		user = new UserEntity();
 		model.addAttribute("user", user);
 		model.addAttribute("msg", "");
@@ -43,7 +42,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/signUp")
-	public String signUp(Model model) throws IOException{
+	public String signUp(Model model){
 		demandeEntity = new DemandeEntity();
 		model.addAttribute("demande", demandeEntity);
 		model.addAttribute("msg", "");
@@ -51,7 +50,7 @@ public class HomeController {
 	}
 
 	@PostMapping(value = "/Login")
-	public String login(@ModelAttribute UserEntity userEntity, Model model){
+	public String login(@ModelAttribute UserEntity userEntity, Model model, HttpSession session){
 		user =userRepository.getUserByEmail(userEntity.getEmail());
 		demandeEntity = demandeRepository.getUserByEmail(userEntity.getEmail());
 		if (demandeEntity != null){
@@ -60,7 +59,8 @@ public class HomeController {
 			model.addAttribute("user", user);
 			return "Login";
 		}else{
-			if (user != null && user.getPassword().equals(userEntity.getPassword())) {
+			if (user != null  && passwordEncoder.matches(userEntity.getPassword(), user.getPassword()) == true) {
+				session.setAttribute("email", user.getEmail());
 				if (user.getRole().getRoleName().equals("Admin")) {
 					return "redirect:/Profil";
 				} else if (user.getRole().getRoleName().equals("Apprenant")) {
@@ -76,6 +76,11 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
+	@RequestMapping(value = "logout")
+	public String logout(HttpSession session){
+		session.removeAttribute("email");
+		return "redirect:/login";
+	}
 
 
 

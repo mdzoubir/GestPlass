@@ -23,7 +23,7 @@
             <ul class="navbar-nav ml-auto navbar-right-top">
                 <li class="nav-item">
                     <div id="custom-search" class="top-search-bar">
-                        <a class="form-control" th:href="@{login}">Logout</a>
+                        <a class="form-control" th:href="@{logout}">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -89,7 +89,7 @@
                                             <th>Last Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Delete</th>
+                                            <th>Refuser</th>
                                             <th>Accepter</th>
                                         </tr>
                                     </thead>
@@ -98,7 +98,7 @@
                                         <td th:text="${e.firstName}"></td>
                                         <td th:text="${e.lastName}"></td>
                                         <td th:text="${e.email}"></td>
-                                        <td th:text="'0' + ${e.phone}"></td>
+                                        <td th:text="${e.phone}"></td>
                                         <td>
                                             <form th:action="@{deleteDemande}"  method="post">
                                                 <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>

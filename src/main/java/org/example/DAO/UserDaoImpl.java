@@ -2,6 +2,7 @@ package org.example.DAO;
 
 import org.example.HibernateUtil;
 import org.example.Model.UserEntity;
+import org.example.Repository.ResRepository;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 

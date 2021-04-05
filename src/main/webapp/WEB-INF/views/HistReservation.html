@@ -23,7 +23,7 @@
             <ul class="navbar-nav ml-auto navbar-right-top">
                 <li class="nav-item">
                     <div id="custom-search" class="top-search-bar">
-                        <a class="form-control" th:href="@{login}">Logout</a>
+                        <a class="form-control" th:href="@{logout}">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -83,8 +83,17 @@
                             <form class="form-horizontal" th:action="@{SearchDate}" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-10">
-                                        <h5>Racherche avec La  Date De Reservation</h5>
-                                        <input type="date" name="dateRes" class="form-control">
+                                        <label class="col-sm-2">Date de Reservation :</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" name="dateRes" class="form-control">
+                                        </div>
+                                        <label class="col-sm-2">Le Type De Reservation :</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="typeRes">
+                                                <option th:text="${null}"></option>
+                                                <option th:each="e:${typeList}"><p th:text="${e.typeRes}"></p></option>
+                                            </select>
+                                        </div>
                                         <button type="submit" class="btn btn-primary m-2">
                                             Recherch
                                         </button>
@@ -102,6 +111,7 @@
                                     <th>Le Type De Reservation</th>
                                     <th>Confirmation</th>
                                     <th>Action</th>
+                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -110,19 +120,31 @@
                                     <td th:text="${e.user.email}"></td>
                                     <td th:text="${e.dateRes}"></td>
                                     <td th:text="${e.typeRes.typeRes}"></td>
-                                    <td th:text="${e.confirmation}"></td>
+                                    <td>
+                                        <p th:if="${e.confirmation == true}">Confirmer</p>
+                                        <p th:if="${e.confirmation == false}">Non Confirmer</p>
+                                    </td>
                                     <td class="d-flex flex-row">
-                                        <form th:action="@{deleteReservation}"  method="post">
-                                            <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
-                                            <input type="submit" value="Refuser" class="btn btn-danger">
-                                        </form>
+                                         <span th:if="${e.confirmation == true}">
+                                            <form th:action="@{RefuserReservation}"  method="post">
+                                                <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                                                <input type="submit" value="Refuser" class="btn btn-warning text-white">
+                                            </form>
+                                         </span>
                                         <span th:if="${e.confirmation == false}">
                                             <form th:action="@{AccepterReservation}"  method="post">
                                                 <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
-                                                <input type="submit" value="Accepter" class="btn btn-primary ml-1">
+                                                <input type="submit" value="Accepter" class="btn btn-success">
                                             </form>
                                         </span>
                                     </td>
+                                    <td>
+                                        <form th:action="@{deleteReservation}"  method="post">
+                                            <input type="hidden" th:value="${e.id}"  name="id" class="form-control"/>
+                                            <input type="submit" value="Delete" class="btn btn-danger">
+                                        </form>
+                                    </td>
+
                                 </tr>
                                 </tbody>
                             </table>

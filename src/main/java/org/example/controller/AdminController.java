@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class AdminController {
     @Autowired
     private RoleDaoImpl roleDao;
-
-    @Autowired
-    private UserDaoImpl userDao;
 
     @Autowired
     private ResDaoImpl resDao;
@@ -29,25 +27,20 @@ public class AdminController {
     @Autowired
     private TypeResDaompl typeResDaompl;
 
-    @RequestMapping(value = "/index")
-    public String usersList(Model model){
-        model.addAttribute("admin", HomeController.user);
-        List<RoleEntity>  roleList  =  roleDao.getAllRoles();
-        model.addAttribute("roleList", roleList);
-        return "AdminRole";
-    }
-
-
-
 
     @RequestMapping(value = "HistoriqueReservaton")
-    public String HisReservation(Model model){
-        model.addAttribute("admin", HomeController.user);
-        List<ResEntity> resEntities = resDao.getAllRes();
-        model.addAttribute("Reservation", resEntities);
-        return "HistReservation";
-
-
+    public String HisReservation(Model model, HttpSession session){
+        if (session.getAttribute("email") != null){
+            model.addAttribute("admin", HomeController.user);
+            List<ResEntity> resEntities = resDao.getAllRes();
+            model.addAttribute("Reservation", resEntities);
+            List<TypeResEntity> type = typeResDaompl.getAllTypeRes();
+            model.addAttribute("typeList", type);
+            return "HistReservation";
+        }
+        else{
+            return "redirect:/login";
+        }
     }
 
     @RequestMapping(value = "deleteReservation", method =  RequestMethod.POST)
@@ -58,17 +51,34 @@ public class AdminController {
     }
 
     @RequestMapping(value = "SearchDate", method =RequestMethod.POST)
-    public String RechDate(HttpServletRequest request, Model model){
-        model.addAttribute("admin", HomeController.user);
-        String date = request.getParameter("dateRes");
-        if (!date.equals("")){
-            List<ResEntity> resEntities = resRepository.getResByDate(date);
-            model.addAttribute("Reservation", resEntities);
-            return "HistReservation";
+    public String RechDate(HttpServletRequest request, Model model, HttpSession session){
+        if (session.getAttribute("email") != null) {
+            model.addAttribute("admin", HomeController.user);
+            List<TypeResEntity> typeResEntities = typeResDaompl.getAllTypeRes();
+            model.addAttribute("typeList", typeResEntities);
+            String date = request.getParameter("dateRes");
+            String type = request.getParameter("typeRes");
+            if (!date.equals("") && type.equals("")) {
+                System.out.println(date);
+                List<ResEntity> resEntities = resRepository.getResByDate(date);
+                model.addAttribute("Reservation", resEntities);
+                return "HistReservation";
+            } else if (!type.equals("") && date.equals("")) {
+                System.out.println(type);
+                List<ResEntity> resEntities = resRepository.getResByTypeRes(type);
+                model.addAttribute("Reservation", resEntities);
+                return "HistReservation";
+            } else if (!type.equals("") && !date.equals("")) {
+                System.out.println(date + type);
+                List<ResEntity> resEntities = resRepository.getResByTypeAndDate(date, type);
+                model.addAttribute("Reservation", resEntities);
+                return "HistReservation";
+            } else {
+                return "redirect:/HistoriqueReservaton";
+            }
         }else{
-            return "redirect:/HistoriqueReservaton";
+            return "redirect:/login";
         }
-
     }
 
     @RequestMapping(value = "AccepterReservation", method =  RequestMethod.POST)
@@ -76,6 +86,16 @@ public class AdminController {
         int id  = Integer.parseInt(request.getParameter("id"));
         ResEntity resEntity = resDao.getResById(id);
         resEntity.setConfirmation(true);
+        resEntity.setId(id);
+        resDao.updateRes(resEntity);
+        return "redirect:/HistoriqueReservaton";
+    }
+
+    @RequestMapping(value = "RefuserReservation", method =  RequestMethod.POST)
+    public String ResuseRes(HttpServletRequest request){
+        int id  = Integer.parseInt(request.getParameter("id"));
+        ResEntity resEntity = resDao.getResById(id);
+        resEntity.setConfirmation(false);
         resEntity.setId(id);
         resDao.updateRes(resEntity);
         return "redirect:/HistoriqueReservaton";

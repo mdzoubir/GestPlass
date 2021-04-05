@@ -40,7 +40,8 @@ public class Main {
 //        AdminDaoImpl studentDao = new AdminDaoImpl();
 //        studentDao.addAdmin(studentEntity);
 
-
-
+//        ResRepository resRepository = new ResRepository();
+//        List<ResEntity> res = resRepository.getResByTypeAndDate("2021-04-01", "Lundi à vendredi(9h-17h)");
+//        System.out.println(res);
     }
 }

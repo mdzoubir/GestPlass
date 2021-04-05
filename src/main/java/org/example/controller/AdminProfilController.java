@@ -6,12 +6,14 @@ import org.example.DAO.RoleDaoImpl;
 import org.example.Model.AdminEntity;
 import org.example.Model.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdminProfilController {
@@ -22,21 +24,33 @@ public class AdminProfilController {
     @Autowired
     private AdminDaoImpl adminDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "Profil")
-    public String adminProfil(Model model){
-        model.addAttribute("admin", HomeController.user);
-        model.addAttribute("msg", "");
-        return "AdminProfil";
+    public String adminProfil(Model model, HttpSession session){
+        if (session.getAttribute("email") != null){
+            model.addAttribute("admin", HomeController.user);
+            model.addAttribute("msg", "");
+            return "AdminProfil";
+        }else{
+            return "redirect:/login";
+        }
+
     }
     @RequestMapping(value = "EditAdminProfil")
-    public String editProfil(Model model){
-        model.addAttribute("admin", HomeController.user);
-
-        return "editAdminProfil";
+    public String editProfil(Model model, HttpSession session){
+        if (session.getAttribute("email") != null) {
+            model.addAttribute("admin", HomeController.user);
+            return "editAdminProfil";
+        }else{
+            return "redirect:/login";
+        }
     }
 
     @RequestMapping(value = "editAdminProfil", method = RequestMethod.POST)
     public String editP(HttpServletRequest req, Model model){
+
         int id = Integer.parseInt(req.getParameter("id"));
         String fn = req.getParameter("firstName");
         String ln = req.getParameter("lastName");
@@ -44,8 +58,10 @@ public class AdminProfilController {
         String pass = req.getParameter("password");
         String phone = req.getParameter("phone");
 
+        String passEnCode = passwordEncoder.encode(pass);
+
         RoleEntity role = roleDao.getRoleById(1);
-        AdminEntity adminEntity = new AdminEntity(id,fn,ln,email,pass,phone, role);
+        AdminEntity adminEntity = new AdminEntity(id,fn,ln,email,passEnCode,phone, role);
         adminEntity.showUser();
         adminDao.updateAdmin(adminEntity);
         HomeController.user = adminEntity;
