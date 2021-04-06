@@ -33,6 +33,12 @@ public class HomeController {
 
 	private DemandeEntity demandeEntity;
 
+	@RequestMapping(value = "/")
+	public String hi(){
+		return "redirect:/login";
+	}
+
+	//return login form
 	@RequestMapping(value="/login")
 	public String test(Model model){
 		user = new UserEntity();
@@ -41,6 +47,8 @@ public class HomeController {
 		return "Login";
 	}
 
+
+	//return signup form
 	@RequestMapping(value="/signUp")
 	public String signUp(Model model){
 		demandeEntity = new DemandeEntity();
@@ -49,6 +57,8 @@ public class HomeController {
 		return "SignUp";
 	}
 
+
+	//check is user != null
 	@PostMapping(value = "/Login")
 	public String login(@ModelAttribute UserEntity userEntity, Model model, HttpSession session){
 		user =userRepository.getUserByEmail(userEntity.getEmail());
@@ -76,6 +86,8 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
+
+	//logout
 	@RequestMapping(value = "logout")
 	public String logout(HttpSession session){
 		session.removeAttribute("email");

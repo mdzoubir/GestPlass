@@ -27,6 +27,7 @@ public class AdminProfilController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //return Admin profil
     @RequestMapping(value = "Profil")
     public String adminProfil(Model model, HttpSession session){
         if (session.getAttribute("email") != null){
@@ -38,6 +39,9 @@ public class AdminProfilController {
         }
 
     }
+
+
+    //return Admin form
     @RequestMapping(value = "EditAdminProfil")
     public String editProfil(Model model, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -48,6 +52,8 @@ public class AdminProfilController {
         }
     }
 
+
+    //update admin
     @RequestMapping(value = "editAdminProfil", method = RequestMethod.POST)
     public String editP(HttpServletRequest req, Model model){
 

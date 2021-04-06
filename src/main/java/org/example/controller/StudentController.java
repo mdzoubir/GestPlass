@@ -45,6 +45,7 @@ public class StudentController {
     @Autowired
     private ResRepository resRepository;
 
+    //return student profil
     @RequestMapping(value = "Student", method = RequestMethod.GET)
     public String Apprenant(Model model, HttpSession session){
         if (session.getAttribute("email") != null){
@@ -58,6 +59,8 @@ public class StudentController {
         }
     }
 
+
+    //get update form
     @RequestMapping(value = "editProfil", method = RequestMethod.GET)
     public String getStudent(HttpSession session, Model model){
         if (session.getAttribute("email") != null) {
@@ -69,7 +72,7 @@ public class StudentController {
     }
 
 
-
+    //update user
     @RequestMapping(value = "editProfil", method = RequestMethod.POST)
     public String editStudent(@ModelAttribute StudentEntity studentEntity){
         studentEntity.setReservationMax(3);
@@ -82,6 +85,7 @@ public class StudentController {
     }
 
 
+    //get rese form(save)
     @RequestMapping(value = "Reserver", method = RequestMethod.GET)
     public String getResFrom(@ModelAttribute StudentEntity studentEntity, Model model, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -103,6 +107,8 @@ public class StudentController {
         }
     }
 
+
+    //add reservation
     @RequestMapping(value = "Reserver", method = RequestMethod.POST)
     public String setRes( HttpServletRequest request){
         String date = request.getParameter("dateRes");
@@ -123,6 +129,7 @@ public class StudentController {
     }
 
 
+    //get reservation from (update)
     @RequestMapping(value = "UpdateRes", method = RequestMethod.GET)
     public  String getForm(Model model, HttpServletRequest request, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -151,6 +158,7 @@ public class StudentController {
     }
 
 
+    //update reservation
     @RequestMapping(value = "UpdateRes", method = RequestMethod.POST)
     public  String Editres(HttpServletRequest request){
         String date = request.getParameter("dateRes");
@@ -171,6 +179,7 @@ public class StudentController {
 
 
 
+    //delete rservation
     @RequestMapping(value = "DeleteRes", method = RequestMethod.POST)
     public String DeleteRes(HttpServletRequest request){
         int id = Integer.parseInt(request.getParameter("id"));

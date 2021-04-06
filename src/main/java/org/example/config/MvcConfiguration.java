@@ -103,7 +103,8 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter  implements Applic
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(25);
 
-
+		mailSender.setUsername("zoubirTest12@gmail.com");
+		mailSender.setPassword("AZer1234");
 
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");
@@ -112,44 +113,6 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter  implements Applic
 		props.put("mail.debug", "true");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		mailSender.setUsername("simozoubir012@gmail.com");
-		mailSender.setPassword("simo012simo");
-
-		return mailSender;
+	return mailSender;
 	}
 }

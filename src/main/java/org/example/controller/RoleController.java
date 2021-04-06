@@ -21,6 +21,8 @@ public class RoleController {
     @Autowired
     private RoleDaoImpl roleDAO;
 
+
+    //return role page
     @RequestMapping(value = "/index")
     public String usersList(Model model, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -35,7 +37,7 @@ public class RoleController {
     }
 
 
-    //save role
+    //form save role
     @RequestMapping(value = "RoleForme", method = RequestMethod.GET)
     public String formRole(Model model, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -47,6 +49,8 @@ public class RoleController {
             return "redirect:/login";
         }
     }
+
+    //save role
     @RequestMapping(value = "SaveRole", method = RequestMethod.POST)
     public String SaveRole(RoleEntity role, Model model, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -59,6 +63,8 @@ public class RoleController {
         }
     }
 
+
+    //delete role
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public String deleteRole(HttpServletRequest req, HttpSession session ){
         if (session.getAttribute("email") != null) {
@@ -70,6 +76,8 @@ public class RoleController {
             return "redirect:/login";
         }
     }
+
+    //form update
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String updateForm(Model model, HttpServletRequest req, HttpSession session){
         if (session.getAttribute("email") != null) {
@@ -84,6 +92,8 @@ public class RoleController {
         }
     }
 
+
+    //update
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String updateRole(HttpServletRequest req,HttpSession session, Model model){
         if (session.getAttribute("email") != null) {

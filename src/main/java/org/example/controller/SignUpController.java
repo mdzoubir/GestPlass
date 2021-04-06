@@ -25,7 +25,7 @@ class SignUpController {
     private DemandeDaoImpl demandeDao;
 
 
-
+    //sign up
     @RequestMapping(value = "demande", method = RequestMethod.POST)
     public String demande(@ModelAttribute DemandeEntity demandeEntity, Model model) {
         DemandeEntity demande;
