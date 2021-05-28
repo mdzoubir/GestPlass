@@ -8,21 +8,21 @@ Dans le cadre du respect des mesures sanitaires dû à la pandémie. le nombre d
 
 L’administrateur aura le droit de:
 
-Valider les inscriptions des apprenants.
+--Valider les inscriptions des apprenants.
 
-Valider les demandes d'accès des apprenants.
+--Valider les demandes d'accès des apprenants.
 
-Déterminer hebdomadairement le nombre des apprenants qui peuvent accéder à la fabrique du 17h-20h du lundi au vendredi et du 9h-20h le samedi et le dimanche.
+--Déterminer hebdomadairement le nombre des apprenants qui peuvent accéder à la fabrique du 17h-20h du lundi au vendredi et du 9h-20h le samedi et le dimanche.
 
-Visualiser l’historique.
+--Visualiser l’historique.
 
 L’apprenant aura le droit de:
 
-S’inscrire via son adresse Gmail " le compte sera activé après la confirmation de l'administrateur".
+--S’inscrire via son adresse Gmail " le compte sera activé après la confirmation de l'administrateur".
 
-Réserver l'accès "l'accès sera autorisé après la confirmation de l'administrateur".
+--Réserver l'accès "l'accès sera autorisé après la confirmation de l'administrateur".
 
-Visualiser l’historique
+--Visualiser l’historique
 ​
 
 # Contraintes :
